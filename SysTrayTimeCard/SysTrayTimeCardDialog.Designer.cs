@@ -42,6 +42,7 @@
             this.txtDesc = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.btnZeroTime = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // datePicker
@@ -172,13 +173,23 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // btnZeroTime
             // 
+            this.btnZeroTime.Location = new System.Drawing.Point(353, 18);
+            this.btnZeroTime.Name = "btnZeroTime";
+            this.btnZeroTime.Size = new System.Drawing.Size(44, 23);
+            this.btnZeroTime.TabIndex = 13;
+            this.btnZeroTime.Tag = "60";
+            this.btnZeroTime.Text = "Reset";
+            this.btnZeroTime.UseVisualStyleBackColor = true;
+            this.btnZeroTime.Click += new System.EventHandler(this.zeroTime);
             // 
             // SysTrayTimeCardDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(544, 183);
+            this.Controls.Add(this.btnZeroTime);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.txtDesc);
@@ -220,6 +231,7 @@
         private System.Windows.Forms.TextBox txtDesc;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnZeroTime;
     }
 }
 
