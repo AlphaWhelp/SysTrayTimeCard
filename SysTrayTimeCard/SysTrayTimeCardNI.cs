@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace SysTrayTimeCard
 {
@@ -20,6 +21,8 @@ namespace SysTrayTimeCard
         private static SysTrayTimeCardNI sttc; // See Start() method below.
         private static ContextMenu cm;
 
+        private SysTrayTimeCardDialog sttcd;
+
         // The Meaning of Life is better than The Holy Grail anyway.
         private NotifyIcon CreateNI()
         {
@@ -29,11 +32,13 @@ namespace SysTrayTimeCard
 #if DEBUG
             cm.MenuItems.Add(new MenuItem("Alert", new EventHandler(btnAlert)));
 #endif
-            cm.MenuItems.Add(new MenuItem("AddTime", new EventHandler(btnAddTime)));
+            MenuItem addTime = new MenuItem("AddTime", new EventHandler(btnAddTime));
+            addTime.DefaultItem = true;
+            cm.MenuItems.Add(addTime);
             cm.MenuItems.Add("-"); // Divider
             cm.MenuItems.Add(new MenuItem("Close", new EventHandler(btnExit)));
-            
             newNI.ContextMenu = cm;
+            newNI.DoubleClick += new EventHandler(btnAddTime);
             return newNI;
         }
 
@@ -44,6 +49,7 @@ namespace SysTrayTimeCard
         private SysTrayTimeCardNI()
         {
             ni.Visible = true;
+            sttcd = null;
         }
 
         // I chose to set this up as a singleton because I don't know.
@@ -92,7 +98,18 @@ namespace SysTrayTimeCard
         /// <param name="e"></param>
         private void btnAddTime(object sender, EventArgs e)
         {
-            new SysTrayTimeCardDialog().ShowDialog();
+            if (sttcd == null)
+            {
+                sttcd = new SysTrayTimeCardDialog();
+                sttcd.ShowDialog();
+                sttcd = null;
+                return;
+            }
+            else
+            {
+                sttcd.Focus();
+                return;
+            }
         }
     }
 }
