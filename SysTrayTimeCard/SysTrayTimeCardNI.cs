@@ -8,7 +8,7 @@ using Microsoft.Win32;
 
 namespace SysTrayTimeCard
 {
-    // I'm really bad with names, ok.
+    // I'm really bad with names, okay?
     // It has nothing to do with Monty Python.
     class SysTrayTimeCardNI : ApplicationContext
     {
@@ -68,7 +68,9 @@ namespace SysTrayTimeCard
 
         private void btnExit(object sender, EventArgs e)
         {
-            ni.Visible = false;
+            // If you don't do this, the icon will linger
+            // in the sys tray after exiting until it's moused over.
+            ni.Visible = false; 
             Application.Exit();
         }
 
