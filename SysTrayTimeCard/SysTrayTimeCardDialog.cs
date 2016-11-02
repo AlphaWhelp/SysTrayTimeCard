@@ -94,7 +94,7 @@ namespace SysTrayTimeCard
             // Grab the text data from the Dialog.
             string description = txtDesc.Text;
             string desc = description.ToLower();
-#if RELEASE
+#if !DEBUG
             // A little bit of form validation.
             if ((desc == "asdf") || (desc == "test"))
             {
