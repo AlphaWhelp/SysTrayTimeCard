@@ -62,7 +62,7 @@
             // lblTime
             // 
             this.lblTime.AutoSize = true;
-            this.lblTime.Location = new System.Drawing.Point(343, 23);
+            this.lblTime.Location = new System.Drawing.Point(313, 23);
             this.lblTime.Name = "lblTime";
             this.lblTime.Size = new System.Drawing.Size(34, 13);
             this.lblTime.TabIndex = 2;
@@ -145,16 +145,16 @@
             // 
             // txtDesc
             // 
-            this.txtDesc.Location = new System.Drawing.Point(258, 84);
+            this.txtDesc.Location = new System.Drawing.Point(258, 76);
             this.txtDesc.Multiline = true;
             this.txtDesc.Name = "txtDesc";
             this.txtDesc.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDesc.Size = new System.Drawing.Size(276, 92);
+            this.txtDesc.Size = new System.Drawing.Size(276, 68);
             this.txtDesc.TabIndex = 10;
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(457, 191);
+            this.btnSave.Location = new System.Drawing.Point(457, 152);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 11;
@@ -164,7 +164,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(363, 191);
+            this.btnCancel.Location = new System.Drawing.Point(258, 152);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 12;
@@ -172,11 +172,13 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // 
+            // 
             // SysTrayTimeCardDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(544, 226);
+            this.ClientSize = new System.Drawing.Size(544, 183);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.txtDesc);

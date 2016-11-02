@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.Win32;
 
 namespace SysTrayTimeCard
 {
@@ -34,13 +29,18 @@ namespace SysTrayTimeCard
 #if DEBUG
             cm.MenuItems.Add(new MenuItem("Alert", new EventHandler(btnAlert)));
 #endif
-            cm.MenuItems.Add(new MenuItem("Close", new EventHandler(btnExit)));
             cm.MenuItems.Add(new MenuItem("AddTime", new EventHandler(btnAddTime)));
+            cm.MenuItems.Add("-"); // Divider
+            cm.MenuItems.Add(new MenuItem("Close", new EventHandler(btnExit)));
             
             newNI.ContextMenu = cm;
             return newNI;
         }
 
+        /// <summary>
+        /// The getter for ni property will create
+        /// the notification icon if it doesn't exist.
+        /// </summary>
         private SysTrayTimeCardNI()
         {
             ni.Visible = true;
@@ -60,12 +60,23 @@ namespace SysTrayTimeCard
         }
 
 #if DEBUG
+        /// <summary>
+        /// Test method. No real reason to remove it.
+        /// Won't compile in release.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAlert(object sender, EventArgs e)
         {
             MessageBox.Show("Test");
         }
 #endif
 
+        /// <summary>
+        /// Exits the whole application.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnExit(object sender, EventArgs e)
         {
             // If you don't do this, the icon will linger
@@ -74,6 +85,11 @@ namespace SysTrayTimeCard
             Application.Exit();
         }
 
+        /// <summary>
+        /// Opens the dialog to add time.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAddTime(object sender, EventArgs e)
         {
             new SysTrayTimeCardDialog().ShowDialog();

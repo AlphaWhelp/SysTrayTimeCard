@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -42,18 +35,9 @@ namespace SysTrayTimeCard
             // Get the time to add from a button click
             // All 6 buttons call this handler
             // The time to add is determined by the button's tag property in minutes
-            #region debug code, could potentially be replaced with int timeToAdd = int.Parse(((Button)sender).Tag.ToString());
-            int timeToAdd = 0;
-            bool success = int.TryParse(((Button)sender).Tag.ToString(), out timeToAdd);
-            if (!success) 
-            {
-                MessageBox.Show("This application has thrown a LiterallyCantEvenException", mTitle, MessageBoxButtons.OK);
-                return;
-            }
-            #endregion
-
-            // call the integer based overload
-            addTime(timeToAdd);
+            
+            // Here we parse the integer from the tag and send it straight to the overload
+            addTime(int.Parse(((Button)sender).Tag.ToString()));
         }
 
         /// <summary>
@@ -74,14 +58,35 @@ namespace SysTrayTimeCard
             lblTime.Text = ts.ToString(@"hh\:mm");
         }
 
+        /// <summary>
+        /// Sets time to 00:00
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void zeroTime(object sender, EventArgs e)
+        {
+            ts += ts.Negate();
+            lblTime.Text = ts.ToString(@"hh\:mm");
+        }
+
+        /// <summary>
+        /// Closes the dialog without saving changes.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close(); // Slacker
         }
 
+        /// <summary>
+        /// Set up a basic XML File to track time
+        /// </summary>
+        /// <param name="doc"></param>
         private void prepareXmlDoc(XmlDocument doc)
         {
-            // Set up a basic XML file
+            // XmlDocument is passed by reference so that after creating the XML file here
+            // The file will persist in the document when this function returns to btnSave_Click
             XmlDeclaration declaration = doc.CreateXmlDeclaration("1.0", "UTF-8", "yes");
             doc.AppendChild(declaration);
             XmlElement rootNode = doc.CreateElement("SysTrayTimeCard");
@@ -89,6 +94,11 @@ namespace SysTrayTimeCard
             doc.Save(xmlPath);
         }
 
+        /// <summary>
+        /// Write a time entry to the XML File
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSave_Click(object sender, EventArgs e)
         {
             // Grab the text data from the Dialog.
@@ -140,10 +150,10 @@ namespace SysTrayTimeCard
 
 
             #region This saves the time in the XML
-            XmlDocument doc = new XmlDocument();
-            XmlNode root;
             try
             {
+                XmlDocument doc = new XmlDocument();
+                XmlNode root;
                 // There is no need to check anything here.
                 // This method does nothing if it already exists.
                 Directory.CreateDirectory(appDataPath);
