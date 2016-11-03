@@ -15,6 +15,6 @@ Here are a list of planned features.  These are not listed in any particular ord
 - Add the ability to archive the XML File and start over with a fresh one.
 - Add the ability to perform a rolling archive that removes data from the XML itself instead of archiving the whole file.
 - Add the ability to manually delete specific time entries.
-- Add the ability to quickly open the dialog to enter time through double-clicking the Notification Icon.
+- ~~Add the ability to quickly open the dialog to enter time through double-clicking the Notification Icon.~~~~~~ Completed: [Commit](https://github.com/AlphaWhelp/SysTrayTimeCard/commit/44ecc05a1aa8429a5a65bd87db7562c794f19553)
 
 There is no installer at the moment. No special privileges are required for this application and the goal is to not change that.
