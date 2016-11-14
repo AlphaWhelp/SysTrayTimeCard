@@ -43,6 +43,7 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnZeroTime = new System.Windows.Forms.Button();
+            this.lblMsg = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // datePicker
@@ -184,11 +185,21 @@
             this.btnZeroTime.UseVisualStyleBackColor = true;
             this.btnZeroTime.Click += new System.EventHandler(this.zeroTime);
             // 
+            // lblMsg
+            // 
+            this.lblMsg.ForeColor = System.Drawing.Color.Red;
+            this.lblMsg.Location = new System.Drawing.Point(339, 152);
+            this.lblMsg.Name = "lblMsg";
+            this.lblMsg.Size = new System.Drawing.Size(112, 23);
+            this.lblMsg.TabIndex = 14;
+            this.lblMsg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // SysTrayTimeCardDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(544, 183);
+            this.Controls.Add(this.lblMsg);
             this.Controls.Add(this.btnZeroTime);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
@@ -232,6 +243,7 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnZeroTime;
+        private System.Windows.Forms.Label lblMsg;
     }
 }
 

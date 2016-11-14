@@ -50,6 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="STTCBaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="SysTrayTimeCardDialog.cs">
       <SubType>Form</SubType>
     </Compile>

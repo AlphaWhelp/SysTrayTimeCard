@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace SysTrayTimeCard
 {
-    public partial class SysTrayTimeCardDialog : Form
+    public partial class SysTrayTimeCardDialog : STTCBaseForm
     {
         private TimeSpan ts; // This is the timespan that we use to keep track of how much time we're adding
         private readonly TimeSpan zerots = new TimeSpan(0, 0, 0); // 0 Time to make sure we don't add negative time.
@@ -182,7 +182,7 @@ namespace SysTrayTimeCard
                 newTime.AppendChild(activity);
                 root.AppendChild(newTime);
                 doc.Save(xmlPath);
-                #endregion
+                
             }
             catch
 #if DEBUG
@@ -197,12 +197,19 @@ namespace SysTrayTimeCard
 #endif
                 return;
             }
+            #endregion
 
 #if DEBUG
             // I thought this would get annoying in a release build so it's hidden behind a Debug directive.
             MessageBox.Show("Saved successfully.", mTitle, MessageBoxButtons.OK);
 #endif
             this.Close();
+        }
+
+        public override void displayMsg(string arg)
+        {
+            if (arg == null) return;
+            else { lblMsg.Text = arg; }
         }
     }
 }

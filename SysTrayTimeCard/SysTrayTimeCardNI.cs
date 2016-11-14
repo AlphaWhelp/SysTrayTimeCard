@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Threading;
 
 namespace SysTrayTimeCard
 {
@@ -21,7 +20,7 @@ namespace SysTrayTimeCard
         private static SysTrayTimeCardNI sttc; // See Start() method below.
         private static ContextMenu cm;
 
-        private SysTrayTimeCardDialog sttcd;
+        private STTCBaseForm sttcActiveWindow;
 
         // The Meaning of Life is better than The Holy Grail anyway.
         private NotifyIcon CreateNI()
@@ -49,7 +48,7 @@ namespace SysTrayTimeCard
         private SysTrayTimeCardNI()
         {
             ni.Visible = true;
-            sttcd = null;
+            sttcActiveWindow = null;
         }
 
         // I chose to set this up as a singleton because I don't know.
@@ -88,7 +87,7 @@ namespace SysTrayTimeCard
             // If you don't do this, the icon will linger
             // in the sys tray after exiting until it's moused over.
             ni.Visible = false; 
-            Application.Exit();
+            Application.Exit(StageLeft);
         }
 
         /// <summary>
@@ -98,18 +97,26 @@ namespace SysTrayTimeCard
         /// <param name="e"></param>
         private void btnAddTime(object sender, EventArgs e)
         {
-            if (sttcd == null)
+            if (sttcActiveWindow == null)
             {
-                sttcd = new SysTrayTimeCardDialog();
-                sttcd.ShowDialog();
-                sttcd = null;
+                sttcActiveWindow = new SysTrayTimeCardDialog();
+                sttcActiveWindow.ShowDialog();
+                sttcActiveWindow = null;
                 return;
             }
             else
             {
-                sttcd.Focus();
+                sttcActiveWindow.Focus();
+                sttcActiveWindow.displayMsg(
+                    sttcActiveWindow.GetType() == typeof(SysTrayTimeCardDialog) ? "Please enter time" : null
+                    );
                 return;
             }
         }
+
+        // Don't judge me
+#pragma warning disable CS0649
+        System.ComponentModel.CancelEventArgs StageLeft;
+#pragma warning restore CS0649
     }
 }
