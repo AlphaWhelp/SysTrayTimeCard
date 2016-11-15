@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Win32;
+using System.Linq;
 
 namespace SysTrayTimeCard
 {
@@ -14,9 +13,29 @@ namespace SysTrayTimeCard
         [STAThread]
         static void Main()
         {
+            bool regFailed = false;
+            try
+            {
+                RegistryKey hkcu = Registry.CurrentUser;
+                RegistryKey saveData;
+                if (hkcu.GetSubKeyNames().Contains("SysTrayTimeCard"))
+                {
+                    saveData = hkcu.OpenSubKey("SysTrayTimeCard");
+                }
+                else
+                {
+                    saveData = hkcu.CreateSubKey("SysTrayTimeCard");
+                }
+
+            }
+            catch
+            {
+                MessageBox.Show("Error reading or writing to registry.\r\nConfiguration changes will not be saved.", "SysTrayTimeCard", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                regFailed = true;
+            }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(SysTrayTimeCardNI.Start());
+            Application.Run(SysTrayTimeCardNI.Start(regFailed));
         }
     }
 }

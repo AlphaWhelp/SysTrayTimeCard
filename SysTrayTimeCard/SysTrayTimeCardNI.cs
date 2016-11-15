@@ -7,6 +7,7 @@ namespace SysTrayTimeCard
     // It has nothing to do with Monty Python.
     class SysTrayTimeCardNI : ApplicationContext
     {
+        public static bool configEnabled { get; set; }
         private NotifyIcon _ni;
         private NotifyIcon ni
         {
@@ -62,6 +63,12 @@ namespace SysTrayTimeCard
                 return sttc;
             }
             else return sttc;
+        }
+
+        public static SysTrayTimeCardNI Start(bool regFailed)
+        {
+            configEnabled = !regFailed;
+            return Start();
         }
 
 #if DEBUG
