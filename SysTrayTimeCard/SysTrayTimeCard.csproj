@@ -53,6 +53,7 @@
     <Compile Include="STTCBaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="STTCRegKey.cs" />
     <Compile Include="SysTrayTimeCardDialog.cs">
       <SubType>Form</SubType>
     </Compile>

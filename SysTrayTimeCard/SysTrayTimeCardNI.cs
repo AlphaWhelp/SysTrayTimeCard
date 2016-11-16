@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace SysTrayTimeCard
 {
@@ -7,7 +8,6 @@ namespace SysTrayTimeCard
     // It has nothing to do with Monty Python.
     class SysTrayTimeCardNI : ApplicationContext
     {
-        public static bool configEnabled { get; set; }
         private NotifyIcon _ni;
         private NotifyIcon ni
         {
@@ -35,6 +35,11 @@ namespace SysTrayTimeCard
             MenuItem addTime = new MenuItem("AddTime", new EventHandler(btnAddTime));
             addTime.DefaultItem = true;
             cm.MenuItems.Add(addTime);
+            MenuItem config = new MenuItem("Config");
+            MenuItem roamingEnabled = new MenuItem("Roaming Enabled", new EventHandler(toggleRoaming));
+            roamingEnabled.Checked = Program.regKey.roamingEnabled;
+            config.MenuItems.Add(roamingEnabled);
+            cm.MenuItems.Add(config);
             cm.MenuItems.Add("-"); // Divider
             cm.MenuItems.Add(new MenuItem("Close", new EventHandler(btnExit)));
             newNI.ContextMenu = cm;
@@ -63,12 +68,6 @@ namespace SysTrayTimeCard
                 return sttc;
             }
             else return sttc;
-        }
-
-        public static SysTrayTimeCardNI Start(bool regFailed)
-        {
-            configEnabled = !regFailed;
-            return Start();
         }
 
 #if DEBUG
@@ -119,6 +118,34 @@ namespace SysTrayTimeCard
                     );
                 return;
             }
+        }
+
+        /// <summary>
+        /// Toggle Roaming / Local
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void toggleRoaming(object sender, EventArgs e)
+        {
+            MenuItem mi = (MenuItem)sender;
+            mi.Checked = !mi.Checked;
+            Program.regKey.roamingEnabled = mi.Checked;
+        }
+
+        // Not currently in use, but I'm sure that will change.
+        /// <summary>
+        /// Uncheck other menu items
+        /// Requires they all have the same Tag
+        /// </summary>
+        /// <param name="item">The sender from the onClick event handler</param>
+        public void uncheckOtherItems(MenuItem item)
+        {
+            var query = from MenuItem x in item.Parent.MenuItems
+                        where x.Tag.ToString() == item.Tag.ToString()
+                        select x;
+
+            foreach (MenuItem mi in query) mi.Checked = false;
+            item.Checked = true;
         }
 
         // Don't judge me

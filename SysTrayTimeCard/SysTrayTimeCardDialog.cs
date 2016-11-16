@@ -9,10 +9,14 @@ namespace SysTrayTimeCard
     {
         private TimeSpan ts; // This is the timespan that we use to keep track of how much time we're adding
         private readonly TimeSpan zerots = new TimeSpan(0, 0, 0); // 0 Time to make sure we don't add negative time.
-        private readonly string mTitle = "SysTrayTimeCard";
+        private readonly string mTitle = "SysTrayTimeCard"; // Common message dialog title
 
         // Store save data in the Local Appdata. This means we won't need Admin privileges.
-        private static readonly string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\SysTrayTimeCard";
+        private static readonly string appDataPath =
+            Program.regKey.roamingEnabled ? // Strong preference to Roaming enabled, but disabled by default
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\SysTrayTimeCard" : 
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\SysTrayTimeCard";
+
         private readonly string xmlPath = appDataPath + "\\TimeData.xml";
 
         // Create the dialog and initialize it to 0.
